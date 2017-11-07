@@ -1,3 +1,4 @@
+# sets up an audio stream from the microphone
 import time
 import numpy as np
 import pyaudio
