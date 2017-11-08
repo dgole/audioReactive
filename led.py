@@ -6,7 +6,6 @@ import numpy as np
 import config
 import neopixel
 
-
 # create strip object with parameters from config file
 strip = neopixel.Adafruit_NeoPixel(config.nLed, 
                                    config.LED_PIN,
