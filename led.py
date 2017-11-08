@@ -15,8 +15,8 @@ strip = neopixel.Adafruit_NeoPixel(config.nLed,
                                    config.BRIGHTNESS)
 # initialize strip
 strip.begin()
-prev_pixels = np.tile(253, (3, local_N_PIXELS))
-pixels = np.tile(1, (3, local_N_PIXELS))
+prevPixels = np.tile(253, (3, config.nLed))
+pixels = np.tile(1, (3, config.nLed))
 
 def update():
     global pixels, prevPixels
@@ -28,11 +28,11 @@ def update():
     b = p[2][:].astype(int)
     rgb = np.bitwise_or(np.bitwise_or(r, g), b)
     # Update the pixels
-    for i in range(local_N_PIXELS):
+    for i in range(config.nLed):
         # Ignore pixels if they haven't changed (saves bandwidth)
-        if np.array_equal(p[:, i], _prev_pixels[:, i]):
+        if np.array_equal(p[:, i], prevPixels[:, i]):
             continue
         strip._led_data[i] = rgb[i]
-    _prev_pixels = np.copy(p)
+    prevPixels = np.copy(p)
     strip.show()
 
