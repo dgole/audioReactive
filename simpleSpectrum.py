@@ -8,15 +8,16 @@ from scipy.ndimage.filters import gaussian_filter1d
 import config
 import microphone
 import led
-
+'''
 def visualize_spectrum(y):
     output2 = np.zeros([3, config.nPixels])
     return output2 
 
 fft_window = np.hamming(int(config.MIC_RATE / config.FPS) * config.N_ROLLING_HISTORY)
-
+'''
 def microphone_update(audio_samples):
-    global y_roll, prev_rms, prev_exp, prev_fps_update, keyGuess, keyStringList
+    '''
+    global y_roll
     # Normalize samples between 0 and 1
     y = audio_samples / 2.0**15
     # Construct a rolling window of audio samples
@@ -42,14 +43,18 @@ def microphone_update(audio_samples):
     mel /= mel_gain.value
     # Map filterbank output onto LED strip
     output = visualization_effect(mel)
+    '''
+    output = np.zeros([3, config.nLed]) 
+    output[10,1] = 255
+    output[11,2] = 255
     led.pixels = output
     led.update()
    
 # Number of audio samples to read every time frame
-samples_per_frame = int(config.MIC_RATE / config.FPS)
+#samples_per_frame = int(config.MIC_RATE / config.FPS)
 
 # Array containing the rolling audio sample window
-y_roll = np.random.rand(config.N_ROLLING_HISTORY, samples_per_frame) / 1e16
+#y_roll = np.random.rand(config.N_ROLLING_HISTORY, samples_per_frame) / 1e16
 
 if __name__ == '__main__':
     # Initialize LEDs
