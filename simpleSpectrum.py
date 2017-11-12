@@ -44,7 +44,7 @@ def microphone_update(audio_samples):
     # Map filterbank output onto LED strip
     output = visualization_effect(mel)
     '''
-    output = np.zeros([3, config.nLed]) 
+    output = np.zeros([config.nLed,3]) 
     output[10,1] = 255
     output[11,2] = 255
     led.pixels = output
