@@ -7,6 +7,7 @@ import config
 
 def Stream():
     def __init__(self):
+        print('initiating stream object')
         self.p = pyaudio.PyAudio()
         self.frames_per_buffer = int(config.MIC_RATE / config.FPS)
         self.stream = self.p.open(format=pyaudio.paInt16,
@@ -16,6 +17,7 @@ def Stream():
                         frames_per_buffer=self.frames_per_buffer)
         self.overflows = 0
         self.prev_ovf_time = time.time()
+        print('stream object initiated')
     def getData(self):
         try:
             y = np.fromstring(stream.read(frames_per_buffer), dtype=np.int16)
