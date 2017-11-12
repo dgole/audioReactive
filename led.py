@@ -17,6 +17,8 @@ strip = neopixel.Adafruit_NeoPixel(config.nLed,
 strip.begin()
 prevPixels = np.tile(253, (3, config.nLed))
 pixels = np.tile(1, (3, config.nLed))
+print(prevPixels.shape)
+print(pixels.shape)
 
 def update():
     global pixels, prevPixels
