@@ -27,6 +27,7 @@ def update():
     g = np.left_shift(p[1][:].astype(int), 16)
     b = p[2][:].astype(int)
     rgb = np.bitwise_or(np.bitwise_or(r, g), b)
+    p = np.copy(pixels)
     # Update the pixels
     for i in range(config.nLed):
         # Ignore pixels if they haven't changed (saves bandwidth)
