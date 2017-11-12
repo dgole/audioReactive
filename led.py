@@ -45,7 +45,8 @@ while True:
     y = stream.getData()
     if y is not None:
         power = np.sum(np.square(y))
-        print(power)
+        pixels[0,:] = power / 1.e6
+        update()
     
 
 
