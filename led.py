@@ -44,7 +44,8 @@ stream = microphone.Stream()
 while True:
     micData = stream.getData()
     if micData is not None:
-        spectrum = microphone.calcSpectrum(micData)
+        freqs, spectrum = microphone.calcSpectrum(micData)
+        print(freqs)
         pixels[0,:] = spectrum[10] / 1.e4
         update()
     
