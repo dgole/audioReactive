@@ -41,6 +41,6 @@ def calcSpectrum(micData):
     micData_padded = np.pad(micData, (0, nZeros), mode='constant')
     freqs = np.fft.fftfreq(nTot, d=1./config.MIC_RATE)
     spectrum = np.abs(np.fft.rfft(micData_padded)[:nTot // 2])
-    return freqs, spectrum
+    return freqs[0:nTot//2], spectrum[0:nTot//2]
     
         
