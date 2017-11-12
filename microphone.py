@@ -39,7 +39,7 @@ def calcSpectrum(micData):
     N_zeros = 2**int(np.ceil(np.log2(N))) - N
     #micData *= fft_window
     micData_padded = np.pad(micData, (0, N_zeros), mode='constant')
-    spectrum = np.abs(np.fft.rfft(y_padded)[:N // 2])
+    spectrum = np.abs(np.fft.rfft(micData_padded)[:N // 2])
     return spectrum
     
         
