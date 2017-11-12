@@ -40,12 +40,10 @@ def update():
         strip._led_data[i] = rgb[i]
     strip.show()
 
-print('marker1')
-stream = microphone.Stream()
-print('marker2')
-data = stream.getData()
-print('marker3')
-print(data)
+while True:
+    stream = microphone.Stream()
+    data = stream.getData()
+    print(data)
 
 
 
