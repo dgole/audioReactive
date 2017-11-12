@@ -8,6 +8,7 @@ LED_FREQ_HZ = 800000
 LED_PIN = 12
 LED_DMA = 5
 BRIGHTNESS = 255
+LED_INVERT = 0
 
 # Audio params
 MIC_RATE = 44100 #Sampling frequency of the microphone in Hz
