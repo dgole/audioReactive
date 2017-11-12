@@ -3,8 +3,10 @@ from __future__ import division
 
 import platform
 import numpy as np
+import time
 import config
 import neopixel
+import microphone
 
 # create strip object with parameters from config file
 strip = neopixel.Adafruit_NeoPixel(config.nLed, 
@@ -16,7 +18,7 @@ strip = neopixel.Adafruit_NeoPixel(config.nLed,
 # initialize strip
 strip.begin()
 prevPixels = np.tile(253, (3, config.nLed))
-pixels = np.tile(1, (3, config.nLed))
+pixels = np.tile(50, (3, config.nLed))
 print(prevPixels.shape)
 print(pixels.shape)
 
@@ -36,6 +38,8 @@ def update():
         if np.array_equal(p[:, i], prevPixels[:, i]):
             continue
         strip._led_data[i] = rgb[i]
-    prevPixels = np.copy(p)
     strip.show()
+
+update()
+
 
