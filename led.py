@@ -41,10 +41,8 @@ def update():
     strip.show()
 
 stream = microphone.Stream()
-while True:
-    data = stream.getData()
-    print(data)
-    time.sleep(1)
+data = stream.getData()
+print(data)
 
 
 
