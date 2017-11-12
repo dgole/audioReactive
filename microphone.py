@@ -20,7 +20,7 @@ class Stream():
         print('stream object initiated')
     def getData(self):
         try:
-            y = np.fromstring(stream.read(frames_per_buffer), dtype=np.int16)
+            y = np.fromstring(self.stream.read(self.frames_per_buffer), dtype=np.int16)
             y = y.astype(np.float32)
             return(y)
         except IOError:
