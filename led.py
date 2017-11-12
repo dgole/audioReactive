@@ -40,7 +40,7 @@ def update():
         strip._led_data[i] = rgb[i]
     strip.show()
 
-stream = Stream()
+stream = microphone.Stream()
 while True:
     data = getData(self)
     print(self)
