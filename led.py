@@ -43,8 +43,9 @@ def update():
 stream = microphone.Stream()
 while True:
     y = stream.getData()
-    power = np.sum(np.square(y))
-    print(power)
+    if y is not None:
+        power = np.sum(np.square(y))
+        print(power)
     
 
 
