@@ -40,6 +40,11 @@ def update():
         strip._led_data[i] = rgb[i]
     strip.show()
 
-update()
+stream = Stream()
+while True:
+    data = getData(self)
+    print(self)
+    time.sleep(1)
+
 
 
