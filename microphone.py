@@ -40,7 +40,6 @@ def calcSpectrum(micData):
     #micData *= fft_window
     micData_padded = np.pad(y_data, (0, N_zeros), mode='constant')
     spectrum = np.abs(np.fft.rfft(y_padded)[:N // 2])
-    print(spectrum.shape)
     return spectrum
     
         
