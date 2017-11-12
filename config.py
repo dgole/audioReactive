@@ -16,3 +16,4 @@ MIN_FREQUENCY = 130.81 # 130.81 is c3
 MAX_FREQUENCY = 3951.066 # 3951.066 is b7
 N_FFT_BINS = 60
 N_ROLLING_HISTORY = 2 #Number of past audio frames to include in the rolling window
+FPS = 30
