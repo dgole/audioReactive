@@ -42,9 +42,12 @@ def update():
 
 stream = microphone.Stream()
 while True:
-    y = stream.getData()
-    if y is not None:
-        power = np.sum(np.square(y))
+    micData = stream.getData()
+    if micData is not None:
+        power = np.sum(np.square(micData))
+        spectrum = microphone.calcSpectrum(micData)
+        print(spectrum.shape)
+        print(spectrum[10])
         pixels[0,:] = power / 1.e6
         update()
     
