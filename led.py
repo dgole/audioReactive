@@ -22,12 +22,12 @@ def update():
     global pixels, prevPixels
     # Truncate values and cast to integer
     pixels = np.clip(pixels, 0, 255).astype(int)
+    p = np.copy(pixels)
     # Encode 24-bit LED values in 32 bit integers
     r = np.left_shift(p[0][:].astype(int), 8)
     g = np.left_shift(p[1][:].astype(int), 16)
     b = p[2][:].astype(int)
     rgb = np.bitwise_or(np.bitwise_or(r, g), b)
-    p = np.copy(pixels)
     # Update the pixels
     for i in range(config.nLed):
         # Ignore pixels if they haven't changed (saves bandwidth)
