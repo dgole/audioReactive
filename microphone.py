@@ -5,7 +5,7 @@ import pyaudio
 import config
 
 
-def Stream():
+class Stream():
     def __init__(self):
         print('initiating stream object')
         self.p = pyaudio.PyAudio()
