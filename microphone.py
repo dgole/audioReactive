@@ -31,3 +31,16 @@ class Stream():
         self.stream.stop_stream()
         self.stream.close()
         self.p.terminate()
+    
+def calcSpectrum(micData):
+    # Transform audio input into the frequency domain
+    N = len(micData)
+    # Pad with zeros until the next power of two
+    N_zeros = 2**int(np.ceil(np.log2(N))) - N
+    #micData *= fft_window
+    micData_padded = np.pad(y_data, (0, N_zeros), mode='constant')
+    spectrum = np.abs(np.fft.rfft(y_padded)[:N // 2])
+    print(spectrum.shape)
+    return spectrum
+    
+        
