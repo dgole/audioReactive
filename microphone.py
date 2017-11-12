@@ -22,7 +22,7 @@ class Stream():
         try:
             y = np.fromstring(self.stream.read(self.frames_per_buffer), dtype=np.int16)
             y = y.astype(np.float32)
-            print('successfully got data from audio stream'
+            print('successfully got data from audio stream')
             return(y)
         except IOError:
             print('failed to get data from audio stream')
