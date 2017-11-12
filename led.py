@@ -44,7 +44,6 @@ stream = microphone.Stream()
 while True:
     data = stream.getData()
     print(data)
-    time.sleep(1)
 
 
 
