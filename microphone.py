@@ -32,7 +32,7 @@ class Stream():
         except IOError:
             print('failed to get data from audio stream')
             self.overflows += 1
-            return Flase
+            return False
     def stopStream(self):
         self.stream.stop_stream()
         self.stream.close()
