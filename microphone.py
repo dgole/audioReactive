@@ -16,7 +16,7 @@ class Stream():
                         channels=1,
                         rate=config.MIC_RATE,
                         input=True,
-                        framesPerBuffer=self.framesPerBuffer)
+                        frames_per_buffer=self.framesPerBuffer)
         self.overflows = 0
         self.micData = np.zeros(framesPerBuffer*nBuffers, dtype=np.float32)
         print('stream object initiated')
