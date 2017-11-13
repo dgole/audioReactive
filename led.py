@@ -46,11 +46,12 @@ while True:
     success = stream.readNewData()
     if success:
         freqs, spectrum = stream.getSpectrum()
-        print(freqs[0:10])
-        print(freqs[-10:])
+        #print(freqs[0:10])
+        #print(freqs[-10:])
         pixels[0,:] = spectrum[10] / 1.e4
-        for i in range(len(freqs)):
-          print(microphone.hertzToMel(freqs[i]))
+        if stream.frameCount == 10:
+          for i in range(len(freqs)):
+            print(microphone.hertzToMel(freqs[i]))
         update()
     
 
