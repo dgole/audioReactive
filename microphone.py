@@ -28,9 +28,11 @@ class Stream():
             self.micData[(self.nBuffers-1)*self.framesPerBuffer:(self.nBuffers)*self.framesPerBuffer] = self.newMicData
             print('successfully got data from audio stream')
             self.frameCount += 1
+            return True
         except IOError:
             print('failed to get data from audio stream')
-            self.overflows += 1        
+            self.overflows += 1
+            return Flase
     def stopStream(self):
         self.stream.stop_stream()
         self.stream.close()
