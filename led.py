@@ -50,7 +50,7 @@ while True:
         print(freqs[-10:])
         pixels[0,:] = spectrum[10] / 1.e4
         for i in range(len(freqs)):
-          print(microphone.hertzToMel(freqs))
+          print(microphone.hertzToMel(freqs[i]))
         update()
     
 
