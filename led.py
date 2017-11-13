@@ -42,10 +42,11 @@ def update():
 
 stream = microphone.Stream()
 while True:
-    micData = stream.getData()
-    if micData is not None:
-        freqs, spectrum = microphone.calcSpectrum(micData)
-        print(freqs[0:2048//2])
+    # reads new data from mic and saves it in object.  returns true on success or false on failure
+    success = stream.readNewData()
+    if success:
+        freqs, spectrum = stream.getSpectrum()
+        print(freqs.shape)
         pixels[0,:] = spectrum[10] / 1.e4
         update()
     
