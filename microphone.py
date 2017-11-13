@@ -6,23 +6,26 @@ import config
 
 
 class Stream():
-    def __init__(self):
+    def __init__(self, nBuffers=4):
         print('initiating stream object')
         self.frameCount = 0
+        self.nBuffers = nBuffers
         self.p = pyaudio.PyAudio()
-        self.frames_per_buffer = int(config.MIC_RATE / config.FPS)
+        self.framesPerBuffer = int(config.MIC_RATE / config.FPS)
         self.stream = self.p.open(format=pyaudio.paInt16,
                         channels=1,
                         rate=config.MIC_RATE,
                         input=True,
-                        frames_per_buffer=self.frames_per_buffer)
+                        framesPerBuffer=self.framesPerBuffer)
         self.overflows = 0
-        self.prev_ovf_time = time.time()
+        self.micData = np.zeros(framesPerBuffer*nBuffers, dtype=np.float32)
         print('stream object initiated')
     def readNewData(self):
         try:
-            self.micData = np.fromstring(self.stream.read(self.frames_per_buffer), dtype=np.int16)
-            self.micData = self.micData.astype(np.float32)
+            self.newMicData = np.fromstring(self.stream.read(self.framesPerBuffer), dtype=np.int16)
+            self.newMicData = self.newMicData.astype(np.float32)
+            self.micData = np.roll(micData, -framesPerBuffer)
+            self.micData[(self.nBuffers-1)*self.framesPerBuffer:(self.nBuffers)*self.framesPerBuffer] = self.newMicData
             print('successfully got data from audio stream')
             self.frameCount += 1
         except IOError:
