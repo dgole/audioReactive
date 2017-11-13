@@ -47,6 +47,52 @@ class Stream():
         freqs = np.fft.fftfreq(nTot, d=1./config.MIC_RATE)
         spectrum = np.abs(np.fft.rfft(micData_padded)[:nTot // 2])
         return freqs[0:nTot//2], spectrum[0:nTot//2]
+    
+    
+#####################################
+# Create mel bank to convert frequencies to notes
+#####################################
+def hertz_to_mel(freq):
+    return round(12.0*(np.log(0.0323963*freq)/0.693147)+12.0)
+def mel_to_hertz(mel):
+    return 440.0 * (2.0**(1.0/12.0))**(mel-58.0)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
         
