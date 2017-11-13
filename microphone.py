@@ -21,7 +21,9 @@ def getFreqsToMelMatrix(freqMin, freqMax, nFreqs, dMel=1):
     freqsToMelMatrix = np.zeros([nFreqs, nNotes])
     #for i in range(nNotes):
         #frequencies_mel = mel_min + delta_mel * arange(-1, num_bands + 1) 
-    
+ 
+getFreqsToMelMatrix(20, 22100, 4096)
+
 #####################################
 # Stream class
 #####################################
