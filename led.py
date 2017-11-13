@@ -46,7 +46,8 @@ while True:
     success = stream.readNewData()
     if success:
         freqs, spectrum = stream.getSpectrum()
-        print(freqs.shape)
+        print(freqs[0:10])
+        print(freqs[-10:])
         pixels[0,:] = spectrum[10] / 1.e4
         update()
     
