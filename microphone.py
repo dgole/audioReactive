@@ -4,7 +4,27 @@ import numpy as np
 import pyaudio
 import config
 
-
+#####################################
+# convert frequencies to notes
+#####################################
+def hertzToMel(freq):
+    return 12.0*(np.log(0.0323963*freq)/0.693147)+12.0
+def melToHertz(mel):
+    return 440.0 * (2.0**(1.0/12.0))**(mel-58.0)
+def getFreqsToMelMatrix(freqMin, freqMax, nFreqs, dMel=1):
+    melMin = np.ceil(hertzToMel(freqMin))
+    melMax = np.floor(hertzToMel(freqMax))
+    nNotes = (melMax-melMin+1)/dMel
+    centerFreqs = np.arange(melMin,melMax+dMel,dMel)
+    print(centerFreqs.shape)
+    freqsToMelMatrix = np.zeros([nFreqs, nNotes])
+    for i in range(nNotes):
+        frequencies_mel = mel_min + delta_mel * arange(-1, num_bands + 1)
+getFreqsToMelMatrix(20,22000,4096) 
+    
+#####################################
+# Stream class
+#####################################
 class Stream():
     def __init__(self, nBuffers=4):
         print('initiating stream object')
@@ -48,14 +68,6 @@ class Stream():
         spectrum = np.abs(np.fft.rfft(micData_padded)[:nTot // 2])
         return freqs[0:nTot//2], spectrum[0:nTot//2]
     
-    
-#####################################
-# Create mel bank to convert frequencies to notes
-#####################################
-def hertzToMel(freq):
-    return 12.0*(np.log(0.0323963*freq)/0.693147)+12.0
-def melToHertz(mel):
-    return 440.0 * (2.0**(1.0/12.0))**(mel-58.0)
     
      
     
