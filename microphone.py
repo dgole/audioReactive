@@ -11,18 +11,22 @@ def hertzToMel(freq):
     return 12.0*(np.log(0.0323963*freq)/0.693147)+12.0
 def melToHertz(mel):
     return 440.0 * (2.0**(1.0/12.0))**(mel-58.0)
-def getFreqsToMelMatrix(freqMin, freqMax, nFreqs, dMel=1):
-    melMin = np.ceil(hertzToMel(freqMin))
-    melMax = np.floor(hertzToMel(freqMax))
-    nNotes = (melMax-melMin+1)/dMel
-    centerFreqs = np.arange(melMin,melMax+dMel,dMel)
-    print(centerFreqs.shape)
-    print(nNotes)
-    freqsToMelMatrix = np.zeros([nFreqs, nNotes])
-    #for i in range(nNotes):
-        #frequencies_mel = mel_min + delta_mel * arange(-1, num_bands + 1) 
+def getFreqsToMelMatrix(freqs, dMel=1):
+    melMin = np.ceil(hertzToMel(freqs[1]))
+    melMax = np.floor(hertzToMel(freqs[-1]))
+    nFreqs = len(freqs)
+    nMels = (melMax-melMin+1)/dMel
+    mels = np.arange(melMin, melMax+1, dMel)
+    centerFreqs    = [melToHertz(mel)          for mel in mels]
+    lowerEdgeFreqs = [melToHertz(mel-dMel/2.0) for mel in mels]
+    upperEdgeFreqs = [melToHertz(mel+dMel/2.0) for mel in mels]
+    freqsToMelMatrix = np.zeros([nMels, nFreqs])
+    for i in range(nMels):
+        for j in range(nFreqs):
+            if lowerEdgeFreqs[i] < freqs[j] < upperEdgeFreqs[i]:
+                freqsToMelMatrix[i,j] = 1.0 
  
-getFreqsToMelMatrix(20, 22100, 4096)
+
 
 #####################################
 # Stream class
@@ -41,6 +45,11 @@ class Stream():
                         frames_per_buffer=self.framesPerBuffer)
         self.overflows = 0
         self.micData = np.zeros(self.framesPerBuffer*self.nBuffers, dtype=np.float32)
+        self.nSamples = len(self.micData)
+        self.nZeros = 2**int(np.ceil(np.log2(self.nSamples))) - self.nSamples
+        self.nSamplesPadded = self.nSamples + self.nZeros
+        micData_padded = np.pad(self.micData, (0, nZeros), mode='constant')
+        self.freqs = np.fft.fftfreq(self.nSamplesPadded, d=1./config.MIC_RATE)
         print('stream object initiated')
     def readNewData(self):
         try:
@@ -61,14 +70,10 @@ class Stream():
         self.p.terminate()
     def getSpectrum(self):
         # Transform audio input into the frequency domain
-        n = len(self.micData)
         # Pad with zeros until the next power of two
-        nZeros = 2**int(np.ceil(np.log2(n))) - n
-        nTot = n + nZeros
         micData_padded = np.pad(self.micData, (0, nZeros), mode='constant')
-        freqs = np.fft.fftfreq(nTot, d=1./config.MIC_RATE)
-        spectrum = np.abs(np.fft.rfft(micData_padded)[:nTot // 2])
-        return freqs[0:nTot//2], spectrum[0:nTot//2]
+        spectrum = np.abs(np.fft.rfft(micData_padded)[:self.nTot // 2])
+        return spectrum[0:nTot//2]
     
     
      
